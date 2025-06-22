@@ -93,7 +93,7 @@ const HealthRecords = () => {
               QR
             </Button>
             <Button size="sm" variant="outline" className="flex items-center">
-              <NFC className="w-4 h-4 mr-1" />
+              <Nfc className="w-4 h-4 mr-1" />
               NFC
             </Button>
           </div>
@@ -114,7 +114,7 @@ const HealthRecords = () => {
                   <QrCode className="w-6 h-6 text-blue-600" />
                 </div>
                 <div className="w-12 h-12 bg-white rounded-lg border-2 border-dashed border-green-300 flex items-center justify-center">
-                  <NFC className="w-6 h-6 text-green-600" />
+                  <Nfc className="w-6 h-6 text-green-600" />
                 </div>
               </div>
             </div>
