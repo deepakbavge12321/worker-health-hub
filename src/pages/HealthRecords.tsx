@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronDown, FileText, QrCode, NFC, ArrowDown, Search } from "lucide-react";
+import { ChevronDown, FileText, QrCode, Nfc, ArrowDown, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const HealthRecords = () => {
