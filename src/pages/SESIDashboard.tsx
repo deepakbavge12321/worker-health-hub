@@ -69,6 +69,19 @@ const SESIDashboard = () => {
     { month: "Jun", diabetes: 11.0, hypertension: 27.1, obesity: 29.1 }
   ];
 
+  // Chart configurations
+  const ageGroupChartConfig = {
+    diabetes: { label: "Diabetes %", color: "#ef4444" },
+    hypertension: { label: "Hypertension %", color: "#f59e0b" },
+    participation: { label: "Participation %", color: "#22c55e" }
+  };
+
+  const chronicDiseaseChartConfig = {
+    diabetes: { label: "Diabetes %", color: "#ef4444" },
+    hypertension: { label: "Hypertension %", color: "#f59e0b" },
+    obesity: { label: "Obesity %", color: "#8b5cf6" }
+  };
+
   return (
     <div className="mobile-container bg-gray-50 min-h-screen">
       {/* Header */}
@@ -221,19 +234,17 @@ const SESIDashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-64 mb-6">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={ageGroupTrends}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="age" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Bar dataKey="diabetes" fill="#ef4444" name="Diabetes %" />
-                      <Bar dataKey="hypertension" fill="#f59e0b" name="Hypertension %" />
-                      <Bar dataKey="participation" fill="#22c55e" name="Participation %" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
+                <ChartContainer config={ageGroupChartConfig} className="h-64 mb-6">
+                  <BarChart data={ageGroupTrends}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="age" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Bar dataKey="diabetes" fill="#ef4444" name="Diabetes %" />
+                    <Bar dataKey="hypertension" fill="#f59e0b" name="Hypertension %" />
+                    <Bar dataKey="participation" fill="#22c55e" name="Participation %" />
+                  </BarChart>
+                </ChartContainer>
 
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center p-3 bg-red-50 rounded-lg">
@@ -258,37 +269,35 @@ const SESIDashboard = () => {
                 <CardTitle className="text-lg">Chronic Disease Trends (6-Month)</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={chronicallyIllTrends}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="diabetes" 
-                        stroke="#ef4444" 
-                        strokeWidth={2}
-                        name="Diabetes %"
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="hypertension" 
-                        stroke="#f59e0b" 
-                        strokeWidth={2}
-                        name="Hypertension %"
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="obesity" 
-                        stroke="#8b5cf6" 
-                        strokeWidth={2}
-                        name="Obesity %"
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
+                <ChartContainer config={chronicDiseaseChartConfig} className="h-64">
+                  <LineChart data={chronicallyIllTrends}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Line 
+                      type="monotone" 
+                      dataKey="diabetes" 
+                      stroke="#ef4444" 
+                      strokeWidth={2}
+                      name="Diabetes %"
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="hypertension" 
+                      stroke="#f59e0b" 
+                      strokeWidth={2}
+                      name="Hypertension %"
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="obesity" 
+                      stroke="#8b5cf6" 
+                      strokeWidth={2}
+                      name="Obesity %"
+                    />
+                  </LineChart>
+                </ChartContainer>
               </CardContent>
             </Card>
           </TabsContent>
