@@ -19,7 +19,7 @@ import {
   DollarSign
 } from "lucide-react";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, PieChart, Pie, Cell } from "recharts";
 
 const EmployerDashboard = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("month");
@@ -56,6 +56,21 @@ const EmployerDashboard = () => {
     { month: "May", used: 1650, allocated: 2000 },
     { month: "Jun", used: 1720, allocated: 2000 }
   ];
+
+  // Chart configurations
+  const absenteeismChartConfig = {
+    rate: { label: "Current Year", color: "#3b82f6" },
+    previous: { label: "Previous Year", color: "#94a3b8" }
+  };
+
+  const careCreditsChartConfig = {
+    used: { label: "Used", color: "#3b82f6" },
+    allocated: { label: "Allocated", color: "#e5e7eb" }
+  };
+
+  const riskChartConfig = {
+    value: { label: "Percentage" }
+  };
 
   const handleExportReport = (type: string) => {
     console.log(`Exporting ${type} report...`);
@@ -149,26 +164,24 @@ const EmployerDashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={riskDistribution}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={60}
-                        outerRadius={100}
-                        paddingAngle={5}
-                        dataKey="value"
-                      >
-                        {riskDistribution.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
+                <ChartContainer config={riskChartConfig} className="h-64">
+                  <PieChart>
+                    <Pie
+                      data={riskDistribution}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={100}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {riskDistribution.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                  </PieChart>
+                </ChartContainer>
                 <div className="flex justify-center space-x-4 mt-4">
                   {riskDistribution.map((item) => (
                     <div key={item.name} className="flex items-center">
@@ -189,18 +202,16 @@ const EmployerDashboard = () => {
                 <CardTitle className="text-lg">Care Credits Utilization</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={careCreditsData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Bar dataKey="used" fill="#3b82f6" name="Used" />
-                      <Bar dataKey="allocated" fill="#e5e7eb" name="Allocated" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
+                <ChartContainer config={careCreditsChartConfig} className="h-64">
+                  <BarChart data={careCreditsData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Bar dataKey="used" fill="#3b82f6" name="Used" />
+                    <Bar dataKey="allocated" fill="#e5e7eb" name="Allocated" />
+                  </BarChart>
+                </ChartContainer>
               </CardContent>
             </Card>
           </TabsContent>
@@ -218,31 +229,29 @@ const EmployerDashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={absenteeismData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="rate" 
-                        stroke="#3b82f6" 
-                        strokeWidth={2}
-                        name="Current Year"
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="previous" 
-                        stroke="#94a3b8" 
-                        strokeWidth={2}
-                        strokeDasharray="5 5"
-                        name="Previous Year"
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
+                <ChartContainer config={absenteeismChartConfig} className="h-64">
+                  <LineChart data={absenteeismData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Line 
+                      type="monotone" 
+                      dataKey="rate" 
+                      stroke="#3b82f6" 
+                      strokeWidth={2}
+                      name="Current Year"
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="previous" 
+                      stroke="#94a3b8" 
+                      strokeWidth={2}
+                      strokeDasharray="5 5"
+                      name="Previous Year"
+                    />
+                  </LineChart>
+                </ChartContainer>
               </CardContent>
             </Card>
 
