@@ -72,6 +72,12 @@ const Settings = () => {
     { value: "spanish", label: "Español", flag: "🇪🇸" }
   ];
 
+  // If user is not logged in, redirect to login
+  if (!user) {
+    navigate('/login');
+    return null;
+  }
+
   return (
     <div className="mobile-container bg-gray-50 min-h-screen">
       {/* Header */}
@@ -92,9 +98,9 @@ const Settings = () => {
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-gray-900">{user?.name}</p>
+                <p className="font-medium text-gray-900">{user.name}</p>
                 <p className="text-sm text-gray-600">
-                  {user?.type === 'patient' ? `Health ID: ${user.healthId}` : `Registration: ${user.registrationId}`}
+                  {user.type === 'patient' ? `Health ID: ${user.healthId}` : `Registration: ${user.registrationId}`}
                 </p>
               </div>
               <Button variant="outline" size="sm">
