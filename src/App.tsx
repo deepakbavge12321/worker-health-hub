@@ -11,6 +11,8 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import PatientDashboard from "./pages/PatientDashboard";
 import DoctorDashboard from "./pages/DoctorDashboard";
+import EmployerDashboard from "./pages/EmployerDashboard";
+import SESIDashboard from "./pages/SESIDashboard";
 import HealthRecords from "./pages/HealthRecords";
 import Teleconsultation from "./pages/Teleconsultation";
 import Insurance from "./pages/Insurance";
@@ -35,6 +37,8 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/patient-dashboard" element={<PatientDashboard />} />
             <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+            <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+            <Route path="/sesi-dashboard" element={<SESIDashboard />} />
             <Route path="/health-records" element={<HealthRecords />} />
             <Route path="/teleconsultation" element={<Teleconsultation />} />
             <Route path="/insurance" element={<Insurance />} />
