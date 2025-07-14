@@ -1,15 +1,18 @@
-
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { FileText, Calendar, Shield, Settings, Bell, QrCode, User } from "lucide-react";
+import { FileText, Calendar, Shield, Settings, Bell, QrCode } from "lucide-react";
 import { useUser } from "@/contexts/UserContext";
 
 const PatientDashboard = () => {
   const navigate = useNavigate();
   const { user } = useUser();
+
+  // Default to "Carlos Henrique da Silva" if user.name is not provided
+  const displayName = user?.name || "Carlos Henrique da Silva";
+  const firstName = displayName.split(" ")[0];
 
   const healthMetrics = [
     { label: "Last Check-up", value: "Dec 15, 2024", status: "completed" },
@@ -54,11 +57,11 @@ const PatientDashboard = () => {
             <Avatar className="w-16 h-16 border-2 border-white">
               <AvatarImage src={user?.photo} />
               <AvatarFallback className="bg-white text-blue-600 text-lg font-bold">
-                {user?.name?.charAt(0) || 'U'}
+                {displayName.charAt(0)}
               </AvatarFallback>
             </Avatar>
             <div>
-              <h1 className="text-xl font-bold">Hello, {user?.name?.split(' ')[0] || 'User'}</h1>
+              <h1 className="text-xl font-bold">Hello, {firstName}</h1>
               <p className="text-blue-100">Health ID: {user?.healthId || 'BR-12345678'}</p>
             </div>
           </div>
@@ -97,7 +100,7 @@ const PatientDashboard = () => {
                   <p className="text-xs text-gray-600 mb-1">{metric.label}</p>
                   <p className="font-semibold text-sm text-gray-900">{metric.value}</p>
                   <Badge 
-                    variant={metric.status === 'active' || metric.status === 'completed' || metric.status === 'good' ? 'default' : 'secondary'}
+                    variant={['active', 'completed', 'good'].includes(metric.status) ? 'default' : 'secondary'}
                     className="mt-2 text-xs"
                   >
                     {metric.status}
